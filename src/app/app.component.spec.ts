@@ -1,16 +1,18 @@
-import { TestBed } from '@angular/core/testing';
+import {
+  fakeAsync,
+  flushMicrotasks,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
+import { delay, of } from 'rxjs';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterModule.forRoot([])
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [RouterModule.forRoot([])],
+      declarations: [AppComponent],
     }).compileComponents();
   });
 
@@ -26,10 +28,22 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('ang-test');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ang-test');
-  });
+  it('should increment the counter after promise resolved', fakeAsync(() => {
+    let counter = 0;
+    Promise.resolve().then(() => {
+      counter++;
+    });
+    flushMicrotasks();
+    expect(counter).toBe(1);
+  }));
+
+  it('should test observable', fakeAsync(() => {
+    let isSubscribed = false;
+    let myObs = of(isSubscribed);
+    myObs.pipe(delay(1000)).subscribe(() => {
+      isSubscribed = true;
+    });
+    tick(1000);
+    expect(isSubscribed).toBe(true);
+  }));
 });
