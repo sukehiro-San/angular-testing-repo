@@ -24,7 +24,7 @@ describe('GradeDirective', () => {
     fixture.detectChanges();
   }))
 
-  let mockElementRef = {
+  const mockElementRef = {
     nativeElement: document.createElement('li')
   }
   it('should create an instance', () => {
@@ -37,7 +37,7 @@ describe('GradeDirective', () => {
       { name:"Alice", marks: 96},
     ]
     fixture.detectChanges();
-    let li = el.queryAll(By.css('li'));
+    const li = el.queryAll(By.css('li'));
     li[0].nativeElement.dispatchEvent(new Event('mouseenter'));
     fixture.detectChanges();
     expect(li[0].nativeElement.style.color).toBe('green');
@@ -51,7 +51,7 @@ describe('GradeDirective', () => {
       { name:"Alice", marks: 83},
     ]
     fixture.detectChanges();
-    let li = el.queryAll(By.css('li'));
+    const li = el.queryAll(By.css('li'));
     li[0].nativeElement.dispatchEvent(new Event('mouseenter'));
     fixture.detectChanges();
     expect(li[0].nativeElement.style.color).toBe('yellow');
@@ -65,7 +65,7 @@ describe('GradeDirective', () => {
       { name:"Alice", marks: 75},
     ]
     fixture.detectChanges();
-    let li = el.queryAll(By.css('li'));
+    const li = el.queryAll(By.css('li'));
     li[0].nativeElement.dispatchEvent(new Event('mouseenter'));
     fixture.detectChanges();
     expect(li[0].nativeElement.style.color).toBe('orange');
@@ -79,7 +79,7 @@ describe('GradeDirective', () => {
       { name:"Alice", marks: 69},
     ]
     fixture.detectChanges();
-    let li = el.queryAll(By.css('li'));
+    const  li = el.queryAll(By.css('li'));
     li[0].nativeElement.dispatchEvent(new Event('mouseenter'));
     fixture.detectChanges();
     expect(li[0].nativeElement.style.color).toBe('orangered');
@@ -93,7 +93,7 @@ describe('GradeDirective', () => {
       { name:"Alice", marks: 23},
     ]
     fixture.detectChanges();
-    let li = el.queryAll(By.css('li'));
+    const li = el.queryAll(By.css('li'));
     li[0].nativeElement.dispatchEvent(new Event('mouseenter'));
     fixture.detectChanges();
     expect(li[0].nativeElement.style.color).toBe('red');

@@ -39,7 +39,7 @@ describe('AppComponent', () => {
 
   it('should test observable', fakeAsync(() => {
     let isSubscribed = false;
-    let myObs = of(isSubscribed);
+    const myObs = of(isSubscribed);
     myObs.pipe(delay(1000)).subscribe(() => {
       isSubscribed = true;
     });

@@ -27,7 +27,7 @@ export class GradeDirective {
   }
 
   @HostListener('mouseleave', ['$event'])
-  onMouseLeave(event: MouseEvent) {
+  onMouseLeave() {
     const target = this.el.nativeElement;
     if (target.tagName === 'LI') {
       const cell = target as HTMLTableCellElement;

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GradePipe implements PipeTransform {
 
-  transform(value: number, ...args: unknown[]): unknown {
+  transform(value: number): unknown {
     if (value >= 90) {
       return 'A';
     } else if (value >= 80) {

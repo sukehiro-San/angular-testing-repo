@@ -9,14 +9,14 @@ export class DataService {
   constructor(private _http:HttpClient) { }
 
   getUsers() {
-    return this._http.get<any[]>('https://jsonplaceholder.typicode.com/users');
+    return this._http.get<{name:string}[]>('https://jsonplaceholder.typicode.com/users');
   }
 
   getUserById(id: number) {
-    return this._http.get<any>(`https://jsonplaceholder.typicode.com/users/${id}`);
+    return this._http.get<{name:string}>(`https://jsonplaceholder.typicode.com/users/${id}`);
   }
 
-  updateUserById(id: number, user: any) {
-    return this._http.put<any>(`https://jsonplaceholder.typicode.com/users/${id}`, user);
+  updateUserById(id: number, user: {name:string}) {
+    return this._http.put<{name:string}>(`https://jsonplaceholder.typicode.com/users/${id}`, user);
   }
 }
