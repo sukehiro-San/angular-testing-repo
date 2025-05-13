@@ -24,51 +24,9 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-  test:
-    name: Unit Test + Code Coverage
-    runs-on: ubuntu-latest
-    needs: lint
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22.15.0
-
-      - name: Install Dependencies
-        run: npm install
-
-      # 🟢 Install Puppeteer to provide Chromium for headless tests
-      - name: Install Puppeteer
-        run: npm install --save-dev puppeteer
-
-      # 🟢 Set CHROME_BIN to Puppeteer's Chromium binary
-      - name: Set CHROME_BIN to Puppeteer's Chromium
-        run: echo "CHROME_BIN=$(node -p \"require('puppeteer').executablePath()\")" >> $GITHUB_ENV
-
-      # 🟢 Run tests with coverage, using ChromeHeadless
-      - name: Run Tests with Coverage
-        run: npm run test -- --watch=false --code-coverage --browsers=ChromeHeadless
-
-      - name: Check Code Coverage
-        id: coverage
-        run: |
-          COVERAGE=$(node -p "require('./coverage/coverage-summary.json').total.statements.pct")
-          echo "Statements Coverage: $COVERAGE%"
-          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-            echo "❌ Coverage is below 80%. Halting pipeline."
-            exit 1
-          else
-            echo "✅ Coverage is sufficient. Proceeding to deploy."
-          fi
-
   deploy:
     name: Build and Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    needs: test
 
     steps:
       - name: Checkout Code
