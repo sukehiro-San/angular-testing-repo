@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write  # Allows deployment step to push to gh-pages branch
+
 jobs:
   lint:
     name: ESLint Check
