@@ -41,11 +41,17 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      # 🟢 Install Puppeteer to provide Chromium for headless tests
+      - name: Install Puppeteer
+        run: npm install --save-dev puppeteer
+
+      # 🟢 Set CHROME_BIN to Puppeteer's Chromium binary
+      - name: Set CHROME_BIN to Puppeteer's Chromium
+        run: echo "CHROME_BIN=$(node -p \"require('puppeteer').executablePath()\")" >> $GITHUB_ENV
+
+      # 🟢 Run tests with coverage, using ChromeHeadless
       - name: Run Tests with Coverage
-        run: |
-          npm run test -- --watch=false --code-coverage --browsers=ChromeHeadless
-        env:
-          CHROME_BIN: puppeteer
+        run: npm run test -- --watch=false --code-coverage --browsers=ChromeHeadless
 
       - name: Check Code Coverage
         id: coverage
